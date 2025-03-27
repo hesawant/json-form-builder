@@ -76,9 +76,9 @@ export const formData: FormField[] = [
                 label: "Prefer not to say",
                 name: "prefer-not-to-say",
                 options: [
-                  { label: "Yes", value: "yes" },
-                  { label: "No", value: "no" },
-                  { label: "Maybe", value: "maybe" },
+                  { label: "Yes", value: "transgender-yes" },
+                  { label: "No", value: "transgender-no" },
+                  { label: "Maybe", value: "transgender-maybe" },
                 ],
               },
             },

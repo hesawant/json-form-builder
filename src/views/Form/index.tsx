@@ -10,6 +10,8 @@ import Radio from "./Fields/Radio";
 import Select from "./Fields/Select";
 import { FormField } from "src/types";
 
+import { getFormData } from "./utils";
+
 type Props = {
   index: number;
   form: FormState;
@@ -32,8 +34,8 @@ const Form = ({ index, form }: Props) => {
     if (errors.length) {
       alert(JSON.stringify(errors, null, 4));
     } else {
+      console.log(getFormData(form.fields.map(({ field }) => field)));
       alert("Form submitted successfully");
-      console.log(form);
     }
     e.stopPropagation();
     e.preventDefault();
