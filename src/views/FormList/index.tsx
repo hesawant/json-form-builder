@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "src/store";
 import { addForm } from "src/store/actions";
 import { getForms } from "src/store/selectors";
 
-import JsonInputDialog from "src/views/JsonInputDialog";
+import FormBuilderDialog from "src/views/FormBuilderDialog";
 
 import { formData } from "src/data/form";
 import { useState } from "react";
@@ -20,6 +20,17 @@ type Props = {
   selectedIndex: number;
   onClick: (index: number) => void;
 };
+
+/**
+ * FormList component displays a list of forms and handles form creation
+ *
+ * This component provides:
+ * - A button to add new forms using FormBuilderDialog
+ * - A scrollable list of forms that can be selected
+ *
+ * @param {number} selectedIndex - Index of currently selected form
+ * @param {(index: number) => void} onClick - Callback when a form is selected
+ */
 
 const FormList = ({ selectedIndex, onClick }: Props) => {
   const dispatch = useDispatch();
@@ -40,7 +51,7 @@ const FormList = ({ selectedIndex, onClick }: Props) => {
         Add new form
       </Button>
       {jsonInputDialogOpen && (
-        <JsonInputDialog
+        <FormBuilderDialog
           json={formData}
           onSave={handleAddForm}
           onClose={() => setJsonInputDialogOpen(false)}

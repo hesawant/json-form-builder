@@ -1,5 +1,6 @@
 import * as yup from "yup";
 
+import { FieldType } from "./field";
 import {
   MaxLengthRule,
   MinLengthRule,
@@ -8,7 +9,7 @@ import {
 } from "./validation-rules";
 
 export type TextFieldSchema = {
-  type: "text";
+  type: FieldType.TEXT;
   name: string;
   label: string;
   numberOfLines?: number;

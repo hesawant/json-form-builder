@@ -7,10 +7,10 @@ import { useDispatch } from "src/store";
 import { addForm } from "src/store/actions";
 import { formData as formJson } from "src/data/form";
 
+import FormDetails from "src/views/FormDetails";
 import FormList from "src/views/FormList";
 
 import "./App.css";
-import FormDetails from "./views/FormDetails";
 
 const BaseApp = () => {
   const dispatch = useDispatch();

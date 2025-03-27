@@ -1,6 +1,6 @@
 import { formData } from "src/data/form";
 
-import { FormField } from "src/types";
+import { FieldType, FormField } from "src/types";
 import { getFormData } from "./utils";
 
 describe("getFormData", () => {
@@ -19,7 +19,7 @@ describe("getFormData", () => {
   test("should return the form data with radio value", () => {
     const formFields: FormField[] = [
       {
-        type: "radio",
+        type: FieldType.RADIO,
         name: "gender",
         label: "Gender",
         required: true,
@@ -30,7 +30,7 @@ describe("getFormData", () => {
             label: "Other",
             value: "other",
             nested: {
-              type: "radio",
+              type: FieldType.RADIO,
               label: "Other",
               name: "other",
               options: [

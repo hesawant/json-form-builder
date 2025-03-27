@@ -19,7 +19,18 @@ type Props = {
   onClose: () => void;
 };
 
-const JsonInputDialog = ({ json, onSave, onClose }: Props) => {
+/**
+ * FormBuilderDialog component allows editing form field configurations in JSON format
+ *
+ * This dialog component provides a text area for editing form field JSON and validates
+ * the input before saving. It displays validation errors if the JSON is invalid.
+ *
+ * @param {FormField[]} json - Initial form field configuration array
+ * @param {(json: FormField[]) => void} onSave - Callback when valid JSON is saved
+ * @param {() => void} onClose - Callback to close the dialog
+ */
+
+const FormBuilderDialog = ({ json, onSave, onClose }: Props) => {
   const [jsonInput, setJsonInput] = useState(JSON.stringify(json, null, 2));
   const [error, setError] = useState<string>();
 
@@ -47,7 +58,7 @@ const JsonInputDialog = ({ json, onSave, onClose }: Props) => {
 
   return (
     <Dialog
-      open
+      open // Its the responsibility of the parent component to render the dialog.
       title="JSON String"
       data-testid="json-input-dialog"
       maxWidth="md"
@@ -80,4 +91,4 @@ const JsonInputDialog = ({ json, onSave, onClose }: Props) => {
   );
 };
 
-export default JsonInputDialog;
+export default FormBuilderDialog;

@@ -1,5 +1,6 @@
 import { render, fireEvent } from "@testing-library/react";
 
+import { FieldType } from "src/types";
 import TextField from "./index";
 
 describe("TextField", () => {
@@ -9,7 +10,7 @@ describe("TextField", () => {
     const { getByRole, getByText } = render(
       <TextField
         field={{
-          type: "text",
+          type: FieldType.TEXT,
           label: "Email",
           name: "email",
           required: true,
@@ -26,10 +27,10 @@ describe("TextField", () => {
     fireEvent.change(input, { target: { value: "test@test.com" } });
 
     expect(mockOnChange).toHaveBeenCalledWith({
+      type: FieldType.TEXT,
       label: "Email",
       name: "email",
       required: true,
-      type: "text",
       value: "test@test.com",
     });
   });

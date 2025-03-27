@@ -1,9 +1,9 @@
-import { FormField } from "src/types";
+import { FieldType, FormField } from "src/types";
 
 export const formData: FormField[] = [
   {
     name: "username",
-    type: "text",
+    type: FieldType.TEXT,
     label: "Username",
     required: true,
     value: "hesawant",
@@ -22,7 +22,7 @@ export const formData: FormField[] = [
   },
   {
     name: "email",
-    type: "text",
+    type: FieldType.TEXT,
     label: "Email",
     required: false,
     validationRules: [
@@ -34,13 +34,14 @@ export const formData: FormField[] = [
     ],
   },
   {
-    type: "checkbox",
+    type: FieldType.CHECKBOX,
     name: "is_admin",
     label: "Is admin",
     value: false,
+    required: true,
   },
   {
-    type: "select",
+    type: FieldType.SELECT,
     name: "role",
     label: "Role",
     required: true,
@@ -52,7 +53,7 @@ export const formData: FormField[] = [
     value: "guest",
   },
   {
-    type: "radio",
+    type: FieldType.RADIO,
     name: "gender",
     label: "Gender",
     required: true,
@@ -63,7 +64,7 @@ export const formData: FormField[] = [
         label: "Other",
         value: "other",
         nested: {
-          type: "radio",
+          type: FieldType.RADIO,
           label: "Other",
           name: "other",
 
@@ -72,7 +73,7 @@ export const formData: FormField[] = [
               label: "Transgender",
               value: "transgender",
               nested: {
-                type: "radio",
+                type: FieldType.RADIO,
                 label: "Prefer not to say",
                 name: "prefer-not-to-say",
                 options: [

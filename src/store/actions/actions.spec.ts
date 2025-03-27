@@ -1,3 +1,4 @@
+import { FieldType } from "src/types";
 import store from "src/store";
 import { addForm, updateForm, updateFormFieldValue, deleteForm } from "./index";
 
@@ -7,7 +8,7 @@ describe("actions", () => {
       addForm([
         {
           name: "username",
-          type: "text",
+          type: FieldType.TEXT,
           label: "Username",
           required: true,
           value: "username",
@@ -37,7 +38,7 @@ describe("actions", () => {
       updateForm(0, [
         {
           name: "username",
-          type: "text",
+          type: FieldType.TEXT,
           label: "Username",
           required: true,
           value: "long-username",
@@ -66,7 +67,7 @@ describe("actions", () => {
     store.dispatch(
       updateFormFieldValue(0, 0, {
         name: "username",
-        type: "text",
+        type: FieldType.TEXT,
         label: "Username",
         required: false,
         value: "username",

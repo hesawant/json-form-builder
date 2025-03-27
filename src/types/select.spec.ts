@@ -1,9 +1,10 @@
 import { getSelectSchemaValidators } from "./select";
+import { FieldType } from "./field";
 
 describe("SelectSchema", () => {
   it("should return the 2 validators, required and oneOf", () => {
     const validators = getSelectSchemaValidators({
-      type: "select",
+      type: FieldType.SELECT,
       name: "role",
       label: "Role",
       required: true,
@@ -25,7 +26,7 @@ describe("SelectSchema", () => {
 
   it("should return the 1 validator for oneOf", () => {
     const validators = getSelectSchemaValidators({
-      type: "select",
+      type: FieldType.SELECT,
       name: "role",
       label: "Role",
       required: false,

@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { Validator } from "./validation-rules";
+import { FieldType } from "./field";
 
 export type RadioOption = {
   label: string;
@@ -8,7 +9,7 @@ export type RadioOption = {
 };
 
 export type RadioSchema = {
-  type: "radio";
+  type: FieldType.RADIO;
   name: string;
   label: string;
   required?: boolean;

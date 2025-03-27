@@ -1,9 +1,10 @@
 import { getRadioSchemaValidators } from "./radio";
+import { FieldType } from "./field";
 
 describe("RadioSchema", () => {
   it("should return the 2 validators, required and oneOf", () => {
     const validators = getRadioSchemaValidators({
-      type: "radio",
+      type: FieldType.RADIO,
       name: "gender",
       label: "Gender",
       required: true,
@@ -25,7 +26,7 @@ describe("RadioSchema", () => {
 
   it("should return the 1 validator for oneOf", () => {
     const validators = getRadioSchemaValidators({
-      type: "radio",
+      type: FieldType.RADIO,
       name: "gender",
       label: "Gender",
       required: false,

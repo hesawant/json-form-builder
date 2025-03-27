@@ -1,5 +1,7 @@
 import {
+  FieldType,
   FormField,
+  getCheckboxSchemaValidators,
   getRadioSchemaValidators,
   getSelectSchemaValidators,
   getTextFieldSchemaValidators,
@@ -8,11 +10,11 @@ import { FormFieldState } from "../slices";
 
 export const getFormFieldsWithErrors = (form: FormField[]) => {
   const formFields: FormFieldState[] = form.map((field) => {
-    let value: string | undefined;
+    let value: string | boolean | undefined;
     const errors: string[] = [];
 
     switch (field.type) {
-      case "text": {
+      case FieldType.TEXT: {
         const validators = getTextFieldSchemaValidators(field);
         validators.forEach(({ validator, error }) => {
           const valid = validator.isValidSync(field.value);
@@ -24,7 +26,7 @@ export const getFormFieldsWithErrors = (form: FormField[]) => {
         value = field.value || "";
         break;
       }
-      case "select": {
+      case FieldType.SELECT: {
         const validators = getSelectSchemaValidators(field);
 
         validators.forEach(({ validator, error }) => {
@@ -38,8 +40,19 @@ export const getFormFieldsWithErrors = (form: FormField[]) => {
 
         break;
       }
-      case "radio": {
+      case FieldType.RADIO: {
         const validators = getRadioSchemaValidators(field);
+        validators.forEach(({ validator, error }) => {
+          const valid = validator.isValidSync(field.value);
+          if (!valid) {
+            errors.push(error);
+          }
+        });
+        value = field.value;
+        break;
+      }
+      case FieldType.CHECKBOX: {
+        const validators = getCheckboxSchemaValidators(field);
         validators.forEach(({ validator, error }) => {
           const valid = validator.isValidSync(field.value);
           if (!valid) {

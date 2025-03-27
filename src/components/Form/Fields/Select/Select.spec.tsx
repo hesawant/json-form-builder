@@ -1,5 +1,6 @@
 import { render, fireEvent } from "@testing-library/react";
 
+import { FieldType } from "src/types";
 import Select from "./index";
 
 describe("Select", () => {
@@ -9,7 +10,7 @@ describe("Select", () => {
     const { getByText } = render(
       <Select
         field={{
-          type: "select",
+          type: FieldType.SELECT,
           name: "role",
           label: "Role",
           required: true,
@@ -32,7 +33,7 @@ describe("Select", () => {
     fireEvent.click(getByText("Admin"));
 
     expect(mockOnChange).toHaveBeenCalledWith({
-      type: "select",
+      type: FieldType.SELECT,
       name: "role",
       label: "Role",
       required: true,

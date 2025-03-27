@@ -1,5 +1,6 @@
 import { render, fireEvent } from "@testing-library/react";
 
+import { FieldType } from "src/types";
 import Checkbox from "./index";
 
 describe("Checkbox", () => {
@@ -9,7 +10,7 @@ describe("Checkbox", () => {
     const { getByText } = render(
       <Checkbox
         field={{
-          type: "checkbox",
+          type: FieldType.CHECKBOX,
           name: "is_admin",
           label: "Is admin",
           value: false,
@@ -23,7 +24,7 @@ describe("Checkbox", () => {
     fireEvent.click(getByText("Is admin"));
 
     expect(mockOnChange).toHaveBeenCalledWith({
-      type: "checkbox",
+      type: FieldType.CHECKBOX,
       name: "is_admin",
       label: "Is admin",
       value: true,

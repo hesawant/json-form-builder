@@ -8,14 +8,15 @@ type Props = {
 };
 
 const Checkbox = ({ field, onChange }: Props) => {
-  const { label, name } = field;
+  const { label, required, name } = field;
 
   return (
     <FormControlLabel
+      required={required}
       control={
         <MuiCheckbox
           name={name}
-          checked={field.value}
+          checked={field.value || false}
           onChange={(e) => onChange({ ...field, value: e.target.checked })}
         />
       }

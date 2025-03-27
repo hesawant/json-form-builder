@@ -1,10 +1,11 @@
 import { getTextFieldSchemaValidators } from "./text-field";
+import { FieldType } from "./field";
 
 describe("TextFieldSchema", () => {
   it("should return the 3 validators, required and oneOf", () => {
     const validators = getTextFieldSchemaValidators({
+      type: FieldType.TEXT,
       name: "username",
-      type: "text",
       label: "Username",
       required: true,
       value: "hesawant",

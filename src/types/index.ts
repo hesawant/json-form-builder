@@ -1,7 +1,10 @@
-import { CheckboxSchema } from "./checkbox";
+import { CheckboxSchema, getCheckboxSchemaValidators } from "./checkbox";
 import { RadioOption, RadioSchema, getRadioSchemaValidators } from "./radio";
 import { SelectSchema, getSelectSchemaValidators } from "./select";
 import { TextFieldSchema, getTextFieldSchemaValidators } from "./text-field";
+import { FieldType } from "./field";
+
+export { FieldType };
 
 export type {
   CheckboxSchema,
@@ -18,6 +21,7 @@ export type FormField =
   | TextFieldSchema;
 
 export {
+  getCheckboxSchemaValidators,
   getRadioSchemaValidators,
   getSelectSchemaValidators,
   getTextFieldSchemaValidators,

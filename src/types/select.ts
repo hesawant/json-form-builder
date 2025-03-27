@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { Validator } from "./validation-rules";
+import { FieldType } from "./field";
 
 export type SelectOption = {
   label: string;
@@ -7,7 +8,7 @@ export type SelectOption = {
 };
 
 export type SelectSchema = {
-  type: "select";
+  type: FieldType.SELECT;
   name: string;
   label: string;
   options: SelectOption[];

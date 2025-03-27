@@ -1,15 +1,16 @@
 import { render, fireEvent } from "@testing-library/react";
+import { FieldType } from "src/types";
 
-import RadioGroup from "./RadioGroup";
+import Radio from "./index";
 
-describe("RadioGroup", () => {
-  test("Renders RadioGroup", async () => {
+describe("Radio", () => {
+  test("Renders Radio", async () => {
     const mockOnChange = jest.fn();
 
     const { getByText } = render(
-      <RadioGroup
+      <Radio
         field={{
-          type: "radio",
+          type: FieldType.RADIO,
           name: "gender",
           label: "Gender",
           value: "female",
@@ -20,11 +21,12 @@ describe("RadioGroup", () => {
             { label: "Other", value: "other" },
           ],
         }}
+        errors={[]}
         onChange={mockOnChange}
       />
     );
 
-    // expect(getByText("Gender")).toBeInTheDocument();
+    expect(getByText("Gender")).toBeInTheDocument();
     expect(getByText("Male")).toBeInTheDocument();
     expect(getByText("Female")).toBeInTheDocument();
     expect(getByText("Other")).toBeInTheDocument();
@@ -32,7 +34,7 @@ describe("RadioGroup", () => {
     fireEvent.click(getByText("Male"));
 
     expect(mockOnChange).toHaveBeenCalledWith({
-      type: "radio",
+      type: FieldType.RADIO,
       name: "gender",
       label: "Gender",
       value: "male",

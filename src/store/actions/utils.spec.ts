@@ -1,3 +1,4 @@
+import { FieldType } from "src/types";
 import { formData } from "src/data/form";
 import { getFormFieldsWithErrors } from "./utils";
 
@@ -17,7 +18,7 @@ describe("getFormFieldsWithErrors", () => {
     const formFields = getFormFieldsWithErrors([
       {
         name: "username",
-        type: "text",
+        type: FieldType.TEXT,
         label: "Username",
         required: true,
         value: "this is a long username",
@@ -46,7 +47,7 @@ describe("getFormFieldsWithErrors", () => {
   it("should return errors when select field validation fails", () => {
     const formFields = getFormFieldsWithErrors([
       {
-        type: "select",
+        type: FieldType.SELECT,
         name: "role",
         label: "Role",
         required: true,
@@ -66,7 +67,7 @@ describe("getFormFieldsWithErrors", () => {
   it("should return errors when radio field validation fails", () => {
     const formFields = getFormFieldsWithErrors([
       {
-        type: "radio",
+        type: FieldType.RADIO,
         name: "gender",
         label: "Gender",
         required: true,
@@ -81,5 +82,20 @@ describe("getFormFieldsWithErrors", () => {
     expect(formFields).toHaveLength(1);
     expect(formFields[0].errors).toHaveLength(1);
     expect(formFields[0].errors[0]).toBe("Gender is required");
+  });
+
+  it("should return errors when checkbox field validation fails", () => {
+    const formFields = getFormFieldsWithErrors([
+      {
+        type: FieldType.CHECKBOX,
+        name: "is_admin",
+        label: "Is admin",
+        required: true,
+      },
+    ]);
+
+    expect(formFields).toHaveLength(1);
+    expect(formFields[0].errors).toHaveLength(1);
+    expect(formFields[0].errors[0]).toBe("Is admin is required");
   });
 });
