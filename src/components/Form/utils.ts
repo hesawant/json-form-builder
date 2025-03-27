@@ -19,10 +19,12 @@ const getNestedRadioValue = (field: FormField): string => {
   return field.value || "";
 };
 
-export const getFormData = (fields: FormField[]) => {
+export const getFormData = (form: FormState) => {
   const data: { [key: string]: unknown } = {};
 
-  fields.forEach((field) => {
+  form.fields.forEach(({ field }) => {
+    if (!isFieldVisible(form, field)) return;
+
     if (field.type === FieldType.RADIO) {
       data[field.name] = getNestedRadioValue(field);
     } else {

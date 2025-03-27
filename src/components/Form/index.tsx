@@ -27,7 +27,7 @@ const Form = ({ form, onChange }: Props) => {
     if (errors.length) {
       alert(JSON.stringify(errors, null, 4));
     } else {
-      console.log(getFormData(form.fields.map(({ field }) => field)));
+      console.log(getFormData(form));
       alert("Form submitted successfully");
     }
     e.stopPropagation();
