@@ -1,7 +1,12 @@
-import { FormSchema, getTextFieldSchemaValidator } from "src/types";
+import {
+  FormField,
+  FormSchema,
+  getRadioSchemaValidators,
+  getSelectSchemaValidators,
+  getTextFieldSchemaValidators,
+} from "src/types";
 import { formsSlice, FormFieldState } from "./slices";
-import { AppDispatch, RootState } from "./index";
-import { getSelectSchemaValidators } from "src/types/select";
+import { AppDispatch } from "./index";
 
 export const addForm = (form: FormSchema) => (dispatch: AppDispatch) => {
   const formFields: FormFieldState[] = form.map((field) => {
@@ -10,7 +15,7 @@ export const addForm = (form: FormSchema) => (dispatch: AppDispatch) => {
 
     switch (field.type) {
       case "text": {
-        const validators = getTextFieldSchemaValidator(field);
+        const validators = getTextFieldSchemaValidators(field);
         validators.forEach(({ validator, error }) => {
           const valid = validator.isValidSync(field.value);
           if (!valid) {
@@ -35,6 +40,17 @@ export const addForm = (form: FormSchema) => (dispatch: AppDispatch) => {
 
         break;
       }
+      case "radio": {
+        const validators = getRadioSchemaValidators(field);
+        validators.forEach(({ validator, error }) => {
+          const valid = validator.isValidSync(field.value);
+          if (!valid) {
+            errors.push(error);
+          }
+        });
+        value = field.value;
+        break;
+      }
     }
 
     return { field, value, errors };
@@ -51,7 +67,7 @@ export const updateForm =
 
       switch (field.type) {
         case "text": {
-          const validators = getTextFieldSchemaValidator(field);
+          const validators = getTextFieldSchemaValidators(field);
 
           validators.forEach(({ validator, error }) => {
             const valid = validator.isValidSync(field.value);
@@ -76,6 +92,17 @@ export const updateForm =
           value = field.value;
           break;
         }
+        case "radio": {
+          const validators = getRadioSchemaValidators(field);
+          validators.forEach(({ validator, error }) => {
+            const valid = validator.isValidSync(field.value);
+            if (!valid) {
+              errors.push(error);
+            }
+          });
+          value = field.value;
+          break;
+        }
       }
 
       return { field, value, errors };
@@ -85,18 +112,14 @@ export const updateForm =
   };
 
 export const updateFormFieldValue =
-  (index: number, fieldIndex: number, value: FormFieldState["value"]) =>
-  async (dispatch: AppDispatch, getState: () => RootState) => {
-    const state = getState();
-    const form = state.forms.forms[index];
-    const field = form.fields[fieldIndex].field;
-
+  (index: number, fieldIndex: number, field: FormField) =>
+  async (dispatch: AppDispatch) => {
     const errors: string[] = [];
     if (field.type === "text") {
-      const validators = getTextFieldSchemaValidator(field);
+      const validators = getTextFieldSchemaValidators(field);
 
       validators.forEach(({ validator, error }) => {
-        const valid = validator.isValidSync(value);
+        const valid = validator.isValidSync(field.value);
         if (!valid) {
           errors.push(error);
         }
@@ -105,7 +128,15 @@ export const updateFormFieldValue =
       const validators = getSelectSchemaValidators(field);
 
       validators.forEach(({ validator, error }) => {
-        const valid = validator.isValidSync(value);
+        const valid = validator.isValidSync(field.value);
+        if (!valid) {
+          errors.push(error);
+        }
+      });
+    } else if (field.type === "radio") {
+      const validators = getRadioSchemaValidators(field);
+      validators.forEach(({ validator, error }) => {
+        const valid = validator.isValidSync(field.value);
         if (!valid) {
           errors.push(error);
         }
@@ -116,7 +147,7 @@ export const updateFormFieldValue =
       formsSlice.actions.updateFormFieldValue({
         index,
         fieldIndex,
-        value,
+        field,
         errors,
       })
     );

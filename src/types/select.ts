@@ -21,7 +21,7 @@ export const getSelectSchemaValidators = (field: SelectSchema) => {
   if (field.required) {
     validators.push({
       validator: yup.string().required(),
-      error: `${field.name} is required`,
+      error: `${field.label} is required`,
     });
   }
 
@@ -30,7 +30,7 @@ export const getSelectSchemaValidators = (field: SelectSchema) => {
       validator: yup
         .string()
         .oneOf(field.options.map((option) => option.value)),
-      error: `${field.label} is not one of the options`,
+      error: `${field.label} is not one of the available options`,
     });
   }
 

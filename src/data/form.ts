@@ -49,6 +49,45 @@ export const formData: FormSchema = [
       { label: "User", value: "user" },
       { label: "Guest", value: "guest" },
     ],
-    value: "Guest",
+    value: "guest",
+  },
+  {
+    type: "radio",
+    name: "gender",
+    label: "Gender",
+    required: true,
+    options: [
+      { label: "Male", value: "male" },
+      { label: "Female", value: "female" },
+      {
+        label: "Other",
+        value: "other",
+        nested: {
+          type: "radio",
+          label: "Other",
+          name: "other",
+
+          options: [
+            {
+              label: "Transgender",
+              value: "transgender",
+              nested: {
+                type: "radio",
+                label: "Prefer not to say",
+                name: "prefer-not-to-say",
+                options: [
+                  { label: "Yes", value: "yes" },
+                  { label: "No", value: "no" },
+                  { label: "Maybe", value: "maybe" },
+                ],
+              },
+            },
+            { label: "Non-binary", value: "non-binary" },
+            { label: "Prefer not to say", value: "prefer-not-to-say" },
+          ],
+        },
+      },
+    ],
+    // value: "female",
   },
 ];

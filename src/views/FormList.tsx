@@ -29,6 +29,9 @@ const FormList = ({ selectedIndex, onClick }: Props) => {
 
   const handleAddForm = (json: FormSchema) => {
     dispatch(addForm(json));
+
+    // Not subtracting 1 because the latest added form is not yet in redux
+    onClick(forms.length);
   };
 
   return (

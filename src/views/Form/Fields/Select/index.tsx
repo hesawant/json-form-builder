@@ -9,12 +9,11 @@ import { SelectSchema } from "src/types";
 
 type Props = {
   field: SelectSchema;
-  value: string;
   errors: string[];
-  onChange: (value: string) => void;
+  onChange: (field: SelectSchema) => void;
 };
 
-const Select = ({ field, value, errors, onChange }: Props) => {
+const Select = ({ field, errors, onChange }: Props) => {
   const { label, name, required, options } = field;
 
   return (
@@ -26,8 +25,8 @@ const Select = ({ field, value, errors, onChange }: Props) => {
         label={label}
         labelId="test-select-label"
         name={name}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        value={field.value}
+        onChange={(e) => onChange({ ...field, value: e.target.value })}
       >
         {options.map((option) => {
           return (

@@ -4,11 +4,10 @@ import { CheckboxSchema } from "src/types";
 
 type Props = {
   field: CheckboxSchema;
-  value: boolean;
-  onChange: (value: boolean) => void;
+  onChange: (field: CheckboxSchema) => void;
 };
 
-const Checkbox = ({ field, value, onChange }: Props) => {
+const Checkbox = ({ field, onChange }: Props) => {
   const { label, name } = field;
 
   return (
@@ -16,8 +15,8 @@ const Checkbox = ({ field, value, onChange }: Props) => {
       control={
         <MuiCheckbox
           name={name}
-          checked={value}
-          onChange={(e) => onChange(e.target.checked)}
+          checked={field.value}
+          onChange={(e) => onChange({ ...field, value: e.target.checked })}
         />
       }
       label={label}

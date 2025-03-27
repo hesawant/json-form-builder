@@ -45,10 +45,12 @@ export const getTextFieldSchemaValidators = (textField: TextFieldSchema) => {
         break;
       }
       case "pattern": {
-        validators.push({
-          validator: yup.string().matches(new RegExp(rule.value)),
-          error: rule.error || `Invalid ${textField.label}`,
-        });
+        if (textField.value) {
+          validators.push({
+            validator: yup.string().matches(new RegExp(rule.value)),
+            error: rule.error || `Invalid ${textField.label}`,
+          });
+        }
         break;
       }
     }

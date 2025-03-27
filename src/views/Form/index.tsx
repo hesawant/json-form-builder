@@ -1,12 +1,14 @@
-import { Box, Stack } from "@mui/material";
-import { FormState, FormFieldState } from "src/store/slices";
+import { Button, Stack } from "@mui/material";
+import { FormState } from "src/store/slices";
 
 import { useDispatch } from "src/store";
 import { updateFormFieldValue } from "src/store/actions";
 
 import TextField from "./Fields/TextField";
 import Checkbox from "./Fields/Checkbox";
+import Radio from "./Fields/Radio";
 import Select from "./Fields/Select";
+import { FormField } from "src/types";
 
 type Props = {
   index: number;
@@ -16,55 +18,82 @@ type Props = {
 const Form = ({ index, form }: Props) => {
   const dispatch = useDispatch();
 
-  const handleChange = (fieldIndex: number, value: FormFieldState["value"]) => {
+  const handleChange = (fieldIndex: number, value: FormField) => {
     dispatch(updateFormFieldValue(index, fieldIndex, value));
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const errors = form.fields
+      .map(({ errors }) => {
+        return errors;
+      })
+      .flat();
+
+    if (errors.length) {
+      alert(JSON.stringify(errors, null, 4));
+    } else {
+      alert("Form submitted successfully");
+      console.log(form);
+    }
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
   return (
-    <Stack gap={2} padding={2}>
-      {form.fields.map((field, i) => {
-        if (field.field.type === "text") {
-          return (
-            <TextField
-              key={i}
-              field={field.field}
-              value={field.value as string}
-              errors={field.errors}
-              onChange={(value) => handleChange(i, value)}
-            />
-          );
-        }
+    <form onSubmit={handleSubmit}>
+      <Stack gap={2} padding={2}>
+        {form.fields.map((field, i) => {
+          if (field.field.type === "text") {
+            return (
+              <TextField
+                key={i}
+                field={field.field}
+                errors={field.errors}
+                onChange={(value) => handleChange(i, value)}
+              />
+            );
+          }
 
-        if (field.field.type === "checkbox") {
-          return (
-            <Checkbox
-              key={i}
-              field={field.field}
-              value={Boolean(field.value)}
-              onChange={(value) => handleChange(i, value)}
-            />
-          );
-        }
+          if (field.field.type === "checkbox") {
+            return (
+              <Checkbox
+                key={i}
+                field={field.field}
+                onChange={(value) => handleChange(i, value)}
+              />
+            );
+          }
 
-        if (field.field.type === "select") {
-          return (
-            <Select
-              key={i}
-              field={field.field}
-              value={field.value as string}
-              errors={field.errors}
-              onChange={(value) => handleChange(i, value)}
-            />
-          );
-        }
+          if (field.field.type === "radio") {
+            return (
+              <Radio
+                key={i}
+                field={field.field}
+                errors={field.errors}
+                onChange={(value) => handleChange(i, value)}
+              />
+            );
+          }
 
-        return (
-          <Box key={i}>
-            {field.field.type} - {field.field.name}
-          </Box>
-        );
-      })}
-    </Stack>
+          if (field.field.type === "select") {
+            return (
+              <Select
+                key={i}
+                field={field.field}
+                errors={field.errors}
+                onChange={(value) => handleChange(i, value)}
+              />
+            );
+          }
+
+          return null;
+        })}
+
+        <Button variant="contained" type="submit">
+          Submit
+        </Button>
+      </Stack>
+    </form>
   );
 };
 

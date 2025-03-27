@@ -4,12 +4,11 @@ import { TextFieldSchema } from "src/types";
 
 type Props = {
   field: TextFieldSchema;
-  value: string | undefined;
   errors: string[];
-  onChange: (value: string) => void;
+  onChange: (field: TextFieldSchema) => void;
 };
 
-const TextField = ({ field, value, errors, onChange }: Props) => {
+const TextField = ({ field, errors, onChange }: Props) => {
   const { label, placeholder, name, type, numberOfLines, required } = field;
 
   const error = errors.length > 0 ? errors[0] : undefined;
@@ -26,8 +25,8 @@ const TextField = ({ field, value, errors, onChange }: Props) => {
         label={label}
         placeholder={placeholder}
         name={name}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        value={field.value}
+        onChange={(e) => onChange({ ...field, value: e.target.value })}
         sx={{ flexGrow: 1 }}
         slotProps={{
           input: {
