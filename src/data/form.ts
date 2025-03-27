@@ -1,6 +1,6 @@
-import { FormSchema } from "src/types";
+import { FormField } from "src/types";
 
-export const formData: FormSchema = [
+export const formData: FormField[] = [
   {
     name: "username",
     type: "text",

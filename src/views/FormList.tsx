@@ -14,7 +14,7 @@ import JsonInputDialog from "src/views/JsonInputDialog";
 
 import { formData } from "src/data/form";
 import { useState } from "react";
-import { FormSchema } from "src/types";
+import { FormField } from "src/types";
 
 type Props = {
   selectedIndex: number;
@@ -27,7 +27,7 @@ const FormList = ({ selectedIndex, onClick }: Props) => {
 
   const [jsonInputDialogOpen, setJsonInputDialogOpen] = useState(false);
 
-  const handleAddForm = (json: FormSchema) => {
+  const handleAddForm = (json: FormField[]) => {
     dispatch(addForm(json));
 
     // Not subtracting 1 because the latest added form is not yet in redux

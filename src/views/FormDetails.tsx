@@ -9,7 +9,7 @@ import { getFormByIndex } from "src/store/selectors";
 import JsonInputDialog from "src/views/JsonInputDialog";
 
 import Form from "./Form";
-import { FormSchema } from "src/types";
+import { FormField } from "src/types";
 
 type Props = {
   index: number;
@@ -30,7 +30,7 @@ const FormDetails = ({ index, onDelete }: Props) => {
     );
   }
 
-  const handleSave = (json: FormSchema) => {
+  const handleSave = (json: FormField[]) => {
     dispatch(updateForm(index, json));
   };
 
@@ -60,7 +60,7 @@ const FormDetails = ({ index, onDelete }: Props) => {
           />
         )}
       </Stack>
-      <Form form={form} index={index} />
+      <Form key={index} form={form} index={index} />
     </Stack>
   );
 };

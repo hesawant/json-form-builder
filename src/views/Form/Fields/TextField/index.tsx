@@ -25,7 +25,7 @@ const TextField = ({ field, errors, onChange }: Props) => {
         label={label}
         placeholder={placeholder}
         name={name}
-        value={field.value}
+        value={field.value || ""}
         onChange={(e) => onChange({ ...field, value: e.target.value })}
         sx={{ flexGrow: 1 }}
         slotProps={{

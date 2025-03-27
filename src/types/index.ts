@@ -17,8 +17,6 @@ export type FormField =
   | SelectSchema
   | TextFieldSchema;
 
-export type FormSchema = FormField[];
-
 export {
   getRadioSchemaValidators,
   getSelectSchemaValidators,

@@ -11,11 +11,11 @@ import {
   TextField,
 } from "@mui/material";
 
-import { FormSchema } from "src/types";
+import { FormField } from "src/types";
 
 type Props = {
-  json: FormSchema;
-  onSave: (json: FormSchema) => void;
+  json: FormField[];
+  onSave: (json: FormField[]) => void;
   onClose: () => void;
 };
 
