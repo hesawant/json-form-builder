@@ -48,6 +48,7 @@ const FormBuilderDialog = ({ json, onSave, onClose }: Props) => {
         return value.every((item) =>
           [
             FieldType.CHECKBOX,
+            FieldType.DATE,
             FieldType.EMAIL,
             FieldType.RADIO,
             FieldType.SELECT,

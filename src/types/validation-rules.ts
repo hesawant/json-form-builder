@@ -22,6 +22,7 @@ export type Validator = {
   validator:
     | yup.StringSchema<string | undefined>
     | yup.NumberSchema<number | undefined>
-    | yup.BooleanSchema<boolean | undefined>;
+    | yup.BooleanSchema<boolean | undefined>
+    | yup.DateSchema<Date | undefined>;
   error: string;
 };

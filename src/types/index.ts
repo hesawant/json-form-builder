@@ -1,4 +1,5 @@
 import { CheckboxSchema, getCheckboxSchemaValidators } from "./checkbox";
+import { DateSchema, getDateSchemaValidators } from "./date";
 import { EmailSchema, getEmailSchemaValidators } from "./email";
 import { RadioOption, RadioSchema, getRadioSchemaValidators } from "./radio";
 import { SelectSchema, getSelectSchemaValidators } from "./select";
@@ -9,6 +10,7 @@ export { FieldType };
 
 export type {
   CheckboxSchema,
+  DateSchema,
   EmailSchema,
   RadioOption,
   RadioSchema,
@@ -18,6 +20,7 @@ export type {
 
 export type FormField =
   | CheckboxSchema
+  | DateSchema
   | EmailSchema
   | RadioSchema
   | SelectSchema
@@ -25,6 +28,7 @@ export type FormField =
 
 export {
   getCheckboxSchemaValidators,
+  getDateSchemaValidators,
   getEmailSchemaValidators,
   getRadioSchemaValidators,
   getSelectSchemaValidators,

@@ -13,6 +13,7 @@ describe("getFormData", () => {
       is_admin: false,
       role: "guest",
       username: "hesawant",
+      birthday: "2025-01-15",
     });
   });
 

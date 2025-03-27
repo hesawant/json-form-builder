@@ -1,7 +1,8 @@
 export enum FieldType {
-  TEXT = "text",
   CHECKBOX = "checkbox",
+  DATE = "date",
+  EMAIL = "email",
   RADIO = "radio",
   SELECT = "select",
-  EMAIL = "email",
+  TEXT = "text",
 }

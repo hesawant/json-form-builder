@@ -9,6 +9,7 @@ import { FieldType, FormField } from "src/types";
 
 import { getFormData } from "./utils";
 import Email from "./Fields/Email";
+import Date from "./Fields/Date";
 
 type Props = {
   form: FormState;
@@ -83,6 +84,17 @@ const Form = ({ form, onChange }: Props) => {
           if (field.type === FieldType.SELECT) {
             return (
               <Select
+                key={i}
+                field={field}
+                errors={errors}
+                onChange={(value) => onChange(i, value)}
+              />
+            );
+          }
+
+          if (field.type === FieldType.DATE) {
+            return (
+              <Date
                 key={i}
                 field={field}
                 errors={errors}

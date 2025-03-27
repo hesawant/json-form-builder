@@ -2,81 +2,57 @@ import {
   FieldType,
   FormField,
   getCheckboxSchemaValidators,
+  getDateSchemaValidators,
   getEmailSchemaValidators,
   getRadioSchemaValidators,
   getSelectSchemaValidators,
   getTextFieldSchemaValidators,
 } from "src/types";
 import { FormFieldState } from "../slices";
+import { Validator } from "src/types/validation-rules";
 
 export const getFormFieldsWithErrors = (form: FormField[]) => {
   const formFields: FormFieldState[] = form.map((field) => {
-    let value: string | boolean | undefined;
-    const errors: string[] = [];
+    let value: string | boolean | undefined = field.value;
+    let validators: Validator[] = [];
 
     switch (field.type) {
       case FieldType.TEXT: {
-        const validators = getTextFieldSchemaValidators(field);
-        validators.forEach(({ validator, error }) => {
-          const valid = validator.isValidSync(field.value);
-          if (!valid) {
-            errors.push(error);
-          }
-        });
-
+        validators = getTextFieldSchemaValidators(field);
         value = field.value || "";
         break;
       }
       case FieldType.SELECT: {
-        const validators = getSelectSchemaValidators(field);
-
-        validators.forEach(({ validator, error }) => {
-          const valid = validator.isValidSync(field.value);
-          if (!valid) {
-            errors.push(error);
-          }
-        });
-
-        value = field.value;
+        validators = getSelectSchemaValidators(field);
         break;
       }
       case FieldType.RADIO: {
-        const validators = getRadioSchemaValidators(field);
-        validators.forEach(({ validator, error }) => {
-          const valid = validator.isValidSync(field.value);
-          if (!valid) {
-            errors.push(error);
-          }
-        });
-
-        value = field.value;
+        validators = getRadioSchemaValidators(field);
         break;
       }
       case FieldType.CHECKBOX: {
-        const validators = getCheckboxSchemaValidators(field);
-        validators.forEach(({ validator, error }) => {
-          const valid = validator.isValidSync(field.value);
-          if (!valid) {
-            errors.push(error);
-          }
-        });
-
-        value = field.value;
+        validators = getCheckboxSchemaValidators(field);
         break;
       }
       case FieldType.EMAIL: {
-        const validators = getEmailSchemaValidators(field);
-        validators.forEach(({ validator, error }) => {
-          const valid = validator.isValidSync(field.value);
-          if (!valid) {
-            errors.push(error);
-          }
-        });
-
+        validators = getEmailSchemaValidators(field);
+        value = field.value || "";
+        break;
+      }
+      case FieldType.DATE: {
+        validators = getDateSchemaValidators(field);
         value = field.value || "";
         break;
       }
     }
+
+    const errors: string[] = [];
+    validators.forEach(({ validator, error }) => {
+      const valid = validator.isValidSync(field.value);
+      if (!valid) {
+        errors.push(error);
+      }
+    });
 
     return { field, value, errors };
   });

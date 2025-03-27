@@ -29,6 +29,15 @@ export const formData: FormField[] = [
     placeholder: "Add an email",
   },
   {
+    type: FieldType.DATE,
+    name: "birthday",
+    label: "Birthday",
+    required: true,
+    value: "2025-01-15",
+    min: "2025-01-01",
+    max: "2025-12-31",
+  },
+  {
     type: FieldType.CHECKBOX,
     name: "is_admin",
     label: "Is admin",

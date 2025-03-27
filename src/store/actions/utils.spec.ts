@@ -6,7 +6,7 @@ describe("getFormFieldsWithErrors", () => {
   it("should return the form fields with errors", () => {
     const formFields = getFormFieldsWithErrors(formData);
 
-    expect(formFields).toHaveLength(5);
+    expect(formFields).toHaveLength(6);
 
     formFields.forEach((field) => {
       expect(field.field).toBeDefined();
@@ -113,5 +113,21 @@ describe("getFormFieldsWithErrors", () => {
     expect(formFields).toHaveLength(1);
     expect(formFields[0].errors).toHaveLength(1);
     expect(formFields[0].errors[0]).toBe("Email is not valid");
+  });
+
+  it("should return errors when date picker field validation fails", () => {
+    const formFields = getFormFieldsWithErrors([
+      {
+        type: FieldType.DATE,
+        name: "birthday",
+        label: "Birthday",
+        required: true,
+        value: "invalid-date",
+      },
+    ]);
+
+    expect(formFields).toHaveLength(1);
+    expect(formFields[0].errors).toHaveLength(1);
+    expect(formFields[0].errors[0]).toBe("Birthday is not a valid date");
   });
 });
