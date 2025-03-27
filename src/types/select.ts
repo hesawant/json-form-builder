@@ -9,5 +9,4 @@ export type SelectSchema = {
   label: string;
   options: SelectOption[];
   value?: string;
-  defaultValue?: string;
 };

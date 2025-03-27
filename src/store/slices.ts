@@ -4,7 +4,7 @@ import { FormField } from "src/types";
 
 export type FormFieldState = {
   field: FormField;
-  value: string | undefined;
+  value: FormField["value"];
   errors: string[];
 };
 
@@ -56,7 +56,7 @@ export const formsSlice = createSlice({
       action: PayloadAction<{
         index: number;
         fieldIndex: number;
-        value: string | undefined;
+        value: FormField["value"];
         errors: string[];
       }>
     ) => {

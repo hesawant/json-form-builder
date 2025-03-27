@@ -33,4 +33,10 @@ export const formData: FormSchema = [
       },
     ],
   },
+  {
+    type: "checkbox",
+    name: "is_admin",
+    label: "Is admin",
+    value: false,
+  },
 ];

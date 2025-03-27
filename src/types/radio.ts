@@ -8,5 +8,5 @@ export type RadioSchema = {
   name: string;
   label: string;
   options: RadioOption[];
-  defaultValue?: string;
+  value?: string;
 };

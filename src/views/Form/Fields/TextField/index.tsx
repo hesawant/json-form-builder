@@ -20,14 +20,12 @@ const TextField = ({ field, value, errors, onChange }: Props) => {
       alignItems="baseline"
       gap={1}
     >
-      {/* <Typography variant="caption">{label}</Typography> */}
       <MuiTextField
         required={required}
         fullWidth
         label={label}
         placeholder={placeholder}
         name={name}
-        // defaultValue={value}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         sx={{ flexGrow: 1 }}

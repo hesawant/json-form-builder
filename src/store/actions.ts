@@ -57,7 +57,7 @@ export const updateForm =
   };
 
 export const updateFormFieldValue =
-  (index: number, fieldIndex: number, value: string) =>
+  (index: number, fieldIndex: number, value: FormFieldState["value"]) =>
   async (dispatch: AppDispatch, getState: () => RootState) => {
     const state = getState();
     const form = state.forms.forms[index];
