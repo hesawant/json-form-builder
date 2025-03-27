@@ -1,6 +1,11 @@
 import * as yup from "yup";
 
-import { MaxLengthRule, MinLengthRule, PatternRule } from "./validation-rules";
+import {
+  MaxLengthRule,
+  MinLengthRule,
+  PatternRule,
+  Validator,
+} from "./validation-rules";
 
 export type TextFieldSchema = {
   type: "text";
@@ -14,7 +19,7 @@ export type TextFieldSchema = {
 };
 
 export const getTextFieldSchemaValidators = (textField: TextFieldSchema) => {
-  const validators: { validator: yup.StringSchema; error: string }[] = [];
+  const validators: Validator[] = [];
 
   if (textField.required) {
     validators.push({

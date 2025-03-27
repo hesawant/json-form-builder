@@ -1,6 +1,7 @@
 import { FormSchema, getTextFieldSchemaValidator } from "src/types";
 import { formsSlice, FormFieldState } from "./slices";
 import { AppDispatch, RootState } from "./index";
+import { getSelectSchemaValidators } from "src/types/select";
 
 export const addForm = (form: FormSchema) => (dispatch: AppDispatch) => {
   const formFields: FormFieldState[] = form.map((field) => {
@@ -18,6 +19,20 @@ export const addForm = (form: FormSchema) => (dispatch: AppDispatch) => {
         });
 
         value = field.value || "";
+        break;
+      }
+      case "select": {
+        const validators = getSelectSchemaValidators(field);
+
+        validators.forEach(({ validator, error }) => {
+          const valid = validator.isValidSync(field.value);
+          if (!valid) {
+            errors.push(error);
+          }
+        });
+
+        value = field.value;
+
         break;
       }
     }
@@ -48,6 +63,19 @@ export const updateForm =
           value = field.value || ""; // falling back to empty string because if value is undefined the field value is not updated.
           break;
         }
+        case "select": {
+          const validators = getSelectSchemaValidators(field);
+
+          validators.forEach(({ validator, error }) => {
+            const valid = validator.isValidSync(field.value);
+            if (!valid) {
+              errors.push(error);
+            }
+          });
+
+          value = field.value;
+          break;
+        }
       }
 
       return { field, value, errors };
@@ -66,6 +94,15 @@ export const updateFormFieldValue =
     const errors: string[] = [];
     if (field.type === "text") {
       const validators = getTextFieldSchemaValidator(field);
+
+      validators.forEach(({ validator, error }) => {
+        const valid = validator.isValidSync(value);
+        if (!valid) {
+          errors.push(error);
+        }
+      });
+    } else if (field.type === "select") {
+      const validators = getSelectSchemaValidators(field);
 
       validators.forEach(({ validator, error }) => {
         const valid = validator.isValidSync(value);

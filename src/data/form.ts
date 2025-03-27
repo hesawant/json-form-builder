@@ -39,4 +39,16 @@ export const formData: FormSchema = [
     label: "Is admin",
     value: false,
   },
+  {
+    type: "select",
+    name: "role",
+    label: "Role",
+    required: true,
+    options: [
+      { label: "Admin", value: "admin" },
+      { label: "User", value: "user" },
+      { label: "Guest", value: "guest" },
+    ],
+    value: "Guest",
+  },
 ];

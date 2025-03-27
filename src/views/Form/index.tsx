@@ -6,6 +6,7 @@ import { updateFormFieldValue } from "src/store/actions";
 
 import TextField from "./Fields/TextField";
 import Checkbox from "./Fields/Checkbox";
+import Select from "./Fields/Select";
 
 type Props = {
   index: number;
@@ -40,6 +41,18 @@ const Form = ({ index, form }: Props) => {
               key={i}
               field={field.field}
               value={Boolean(field.value)}
+              onChange={(value) => handleChange(i, value)}
+            />
+          );
+        }
+
+        if (field.field.type === "select") {
+          return (
+            <Select
+              key={i}
+              field={field.field}
+              value={field.value as string}
+              errors={field.errors}
               onChange={(value) => handleChange(i, value)}
             />
           );
