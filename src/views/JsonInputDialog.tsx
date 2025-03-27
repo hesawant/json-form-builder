@@ -46,7 +46,13 @@ const JsonInputDialog = ({ json, onSave, onClose }: Props) => {
   };
 
   return (
-    <Dialog open title="JSON String" maxWidth="md" fullWidth>
+    <Dialog
+      open
+      title="JSON String"
+      data-testid="json-input-dialog"
+      maxWidth="md"
+      fullWidth
+    >
       <DialogContent>
         <Stack gap={2}>
           <TextField
@@ -59,8 +65,14 @@ const JsonInputDialog = ({ json, onSave, onClose }: Props) => {
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Close</Button>
-        <Button variant="contained" onClick={handleSave}>
+        <Button onClick={onClose} data-testid="json-input-dialog-close-button">
+          Close
+        </Button>
+        <Button
+          variant="contained"
+          onClick={handleSave}
+          data-testid="json-input-dialog-save-button"
+        >
           Save
         </Button>
       </DialogActions>

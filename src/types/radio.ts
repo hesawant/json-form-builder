@@ -29,7 +29,9 @@ export const getRadioSchemaValidators = (field: RadioSchema) => {
   if (field.options.length) {
     validators.push({
       validator: yup.string().oneOf(field.options.map((o) => o.value)),
-      error: `${field.label} is required`,
+      error: `${field.label} must be one of: ${field.options
+        .map((o) => o.label)
+        .join(", ")}`,
     });
   }
 

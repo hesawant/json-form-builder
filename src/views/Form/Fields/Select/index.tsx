@@ -27,6 +27,7 @@ const Select = ({ field, errors, onChange }: Props) => {
         name={name}
         value={field.value}
         onChange={(e) => onChange({ ...field, value: e.target.value })}
+        data-testid="form-select"
       >
         {options.map((option) => {
           return (
