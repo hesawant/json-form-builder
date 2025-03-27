@@ -121,7 +121,7 @@ To introduce a new form control:
 
 ## Testing Approach
 
-- Refer [Setup Jest in a typescript React project](https://medium.com/@abhishekpn98/setup-jest-in-a-typescript-react-project-cfb8188534ec) for setting up jest.
+- Refer [Setup Jest in a typescript React project](https://medium.com/@vitor.vicen.te/setting-up-jest-js-for-a-vite-ts-js-react-project-the-ultimate-guide-7816f4c8b738) for setting up jest.
 - Tests cover the below items:
   - Schema validators
   - Redux Actions
