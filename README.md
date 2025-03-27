@@ -18,6 +18,15 @@ Run the below steps
 
 This application accepts a JSON schema and dynamically renders a form based on the provided configuration.
 
+Supports the following types:
+
+- Checkbox
+- Date
+- Email
+- Radio (nested)
+- Select
+- Text
+
 ## Schema Validation
 
 - The schemas for supported form controls are defined in `src/types`.
