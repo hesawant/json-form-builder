@@ -7,6 +7,7 @@ export const formData: FormField[] = [
     label: "Username",
     required: true,
     value: "hesawant",
+    placeholder: "Enter your username",
     validationRules: [
       {
         type: "max",
@@ -22,16 +23,10 @@ export const formData: FormField[] = [
   },
   {
     name: "email",
-    type: FieldType.TEXT,
+    type: FieldType.EMAIL,
     label: "Email",
     required: false,
-    validationRules: [
-      {
-        type: "pattern",
-        value: "^[^s@]+@[^s@]+\\.[^s@]+$",
-        error: "Invalid email address",
-      },
-    ],
+    placeholder: "Add an email",
   },
   {
     type: FieldType.CHECKBOX,

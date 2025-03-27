@@ -2,6 +2,7 @@ import {
   FieldType,
   FormField,
   getCheckboxSchemaValidators,
+  getEmailSchemaValidators,
   getRadioSchemaValidators,
   getSelectSchemaValidators,
   getTextFieldSchemaValidators,
@@ -37,7 +38,6 @@ export const getFormFieldsWithErrors = (form: FormField[]) => {
         });
 
         value = field.value;
-
         break;
       }
       case FieldType.RADIO: {
@@ -48,6 +48,7 @@ export const getFormFieldsWithErrors = (form: FormField[]) => {
             errors.push(error);
           }
         });
+
         value = field.value;
         break;
       }
@@ -59,7 +60,20 @@ export const getFormFieldsWithErrors = (form: FormField[]) => {
             errors.push(error);
           }
         });
+
         value = field.value;
+        break;
+      }
+      case FieldType.EMAIL: {
+        const validators = getEmailSchemaValidators(field);
+        validators.forEach(({ validator, error }) => {
+          const valid = validator.isValidSync(field.value);
+          if (!valid) {
+            errors.push(error);
+          }
+        });
+
+        value = field.value || "";
         break;
       }
     }

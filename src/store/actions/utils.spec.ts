@@ -98,4 +98,20 @@ describe("getFormFieldsWithErrors", () => {
     expect(formFields[0].errors).toHaveLength(1);
     expect(formFields[0].errors[0]).toBe("Is admin is required");
   });
+
+  it("should return errors when email field validation fails", () => {
+    const formFields = getFormFieldsWithErrors([
+      {
+        name: "email",
+        type: FieldType.EMAIL,
+        label: "Email",
+        required: false,
+        value: "invalid-email",
+      },
+    ]);
+
+    expect(formFields).toHaveLength(1);
+    expect(formFields[0].errors).toHaveLength(1);
+    expect(formFields[0].errors[0]).toBe("Email is not valid");
+  });
 });

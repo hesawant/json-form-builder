@@ -8,6 +8,7 @@ import Select from "./Fields/Select";
 import { FieldType, FormField } from "src/types";
 
 import { getFormData } from "./utils";
+import Email from "./Fields/Email";
 
 type Props = {
   form: FormState;
@@ -39,6 +40,17 @@ const Form = ({ form, onChange }: Props) => {
           if (field.type === FieldType.TEXT) {
             return (
               <TextField
+                key={i}
+                field={field}
+                errors={errors}
+                onChange={(value) => onChange(i, value)}
+              />
+            );
+          }
+
+          if (field.type === FieldType.EMAIL) {
+            return (
+              <Email
                 key={i}
                 field={field}
                 errors={errors}
