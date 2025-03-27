@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 
-import { FormField } from "src/types";
+import { FieldType, FormField } from "src/types";
 
 type Props = {
   json: FormField[];
@@ -40,19 +40,37 @@ const FormBuilderDialog = ({ json, onSave, onClose }: Props) => {
   };
 
   const handleSave = () => {
-    const jsonSchema = yup.array().required().min(1);
+    const jsonSchema = yup
+      .array()
+      .required()
+      .min(1)
+      .test("is-valid-field-type", `Invalid field type`, (value) => {
+        return value.every((item) =>
+          [
+            FieldType.CHECKBOX,
+            FieldType.EMAIL,
+            FieldType.RADIO,
+            FieldType.SELECT,
+            FieldType.TEXT,
+          ].includes(item.type)
+        );
+      })
+      .test("is-valid-name", `Invalid field name`, (value) => {
+        return value.every((item) => !!item.name);
+      });
+
     try {
       const jsonObject = JSON.parse(jsonInput);
-      const isValid = jsonSchema.isValidSync(jsonObject);
+      const validationResult = jsonSchema.validateSync(jsonObject);
 
-      if (isValid) {
-        onSave(JSON.parse(jsonInput));
+      if (validationResult.length) {
+        onSave(jsonObject);
         onClose();
       } else {
         setError("Invalid JSON");
       }
-    } catch {
-      setError("Invalid JSON");
+    } catch (e) {
+      setError(`Invalid JSON: ${(e as Error).message}`);
     }
   };
 
