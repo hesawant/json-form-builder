@@ -1,7 +1,7 @@
 import { formData } from "src/data/form";
 
 import { FieldType, FormField } from "src/types";
-import { getFormData } from "./utils";
+import { getFormData, isFieldVisible } from "./utils";
 
 describe("getFormData", () => {
   test("should return the form data", () => {
@@ -49,5 +49,56 @@ describe("getFormData", () => {
     const result = getFormData(formFields);
 
     expect(result).toEqual({ gender: "transgender" });
+  });
+});
+
+const checkboxField: FormField = {
+  type: FieldType.CHECKBOX,
+  name: "is_admin",
+  label: "Is admin",
+  value: true,
+  required: true,
+};
+
+const selectField: FormField = {
+  type: FieldType.SELECT,
+  name: "gender",
+  label: "Gender",
+  required: true,
+  value: "male",
+  options: [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+  ],
+  dependencies: [{ fieldName: "is_admin", value: true }],
+};
+
+describe("isFieldVisible", () => {
+  test("should return true if the field is visible", () => {
+    const result = isFieldVisible(
+      {
+        fields: [
+          { field: checkboxField, errors: [] },
+          { field: selectField, errors: [] },
+        ],
+      },
+      selectField
+    );
+
+    expect(result).toBe(true);
+  });
+
+  test("should return true if the field is visible", () => {
+    const result = isFieldVisible(
+      {
+        fields: [
+          { field: { ...checkboxField, value: false }, errors: [] },
+          { field: selectField, errors: [] },
+        ],
+      },
+      selectField
+    );
+
+    expect(result).toBe(false);
   });
 });

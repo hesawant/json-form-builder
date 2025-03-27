@@ -63,6 +63,7 @@ export type TextFieldSchema = {
   required?: boolean;
   value?: string;
   validationRules?: (MaxLengthRule | MinLengthRule | PatternRule)[];
+  dependencies?: FieldDependency[];
 };
 
 // Other schemas follow a similar pattern.

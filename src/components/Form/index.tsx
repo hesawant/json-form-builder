@@ -7,7 +7,7 @@ import Radio from "./Fields/Radio";
 import Select from "./Fields/Select";
 import { FieldType, FormField } from "src/types";
 
-import { getFormData } from "./utils";
+import { getFormData, isFieldVisible } from "./utils";
 import Email from "./Fields/Email";
 import Date from "./Fields/Date";
 
@@ -38,6 +38,8 @@ const Form = ({ form, onChange }: Props) => {
     <form onSubmit={handleSubmit}>
       <Stack gap={2} padding={2}>
         {form.fields.map(({ field, errors }, i) => {
+          if (!isFieldVisible(form, field)) return null;
+
           if (field.type === FieldType.TEXT) {
             return (
               <TextField

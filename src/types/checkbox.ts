@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { FieldType } from "./field";
+import { FieldDependency, FieldType } from "./field";
 import { Validator } from "./validation-rules";
 
 export type CheckboxSchema = {
@@ -9,6 +9,7 @@ export type CheckboxSchema = {
   label: string;
   required?: boolean;
   value?: boolean;
+  dependencies?: FieldDependency[];
 };
 
 export const getCheckboxSchemaValidators = (

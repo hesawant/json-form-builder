@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { FieldType } from "./field";
+import { FieldDependency, FieldType } from "./field";
 import {
   MaxLengthRule,
   MinLengthRule,
@@ -17,6 +17,7 @@ export type TextFieldSchema = {
   required?: boolean;
   value?: string;
   validationRules?: (MaxLengthRule | MinLengthRule | PatternRule)[];
+  dependencies?: FieldDependency[];
 };
 
 export const getTextFieldSchemaValidators = (textField: TextFieldSchema) => {

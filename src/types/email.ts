@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { FieldType } from "./field";
+import { FieldDependency, FieldType } from "./field";
 import { Validator } from "./validation-rules";
 
 export type EmailSchema = {
@@ -10,6 +10,7 @@ export type EmailSchema = {
   placeholder?: string;
   required?: boolean;
   value?: string;
+  dependencies?: FieldDependency[];
 };
 
 export const getEmailSchemaValidators = (emailSchema: EmailSchema) => {

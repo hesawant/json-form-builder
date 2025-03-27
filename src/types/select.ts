@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { Validator } from "./validation-rules";
-import { FieldType } from "./field";
+import { FieldDependency, FieldType } from "./field";
 
 export type SelectOption = {
   label: string;
@@ -14,6 +14,7 @@ export type SelectSchema = {
   options: SelectOption[];
   required?: boolean;
   value?: string;
+  dependencies?: FieldDependency[];
 };
 
 export const getSelectSchemaValidators = (field: SelectSchema) => {

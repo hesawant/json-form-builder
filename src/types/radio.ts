@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { Validator } from "./validation-rules";
-import { FieldType } from "./field";
+import { FieldDependency, FieldType } from "./field";
 
 export type RadioOption = {
   label: string;
@@ -15,6 +15,7 @@ export type RadioSchema = {
   required?: boolean;
   options: RadioOption[];
   value?: string;
+  dependencies?: FieldDependency[];
 };
 
 export const getRadioSchemaValidators = (field: RadioSchema) => {

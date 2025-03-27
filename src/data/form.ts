@@ -36,6 +36,7 @@ export const formData: FormField[] = [
     value: "2025-01-15",
     min: "2025-01-01",
     max: "2025-12-31",
+    dependencies: [{ fieldName: "email", value: true }],
   },
   {
     type: FieldType.CHECKBOX,
@@ -55,6 +56,7 @@ export const formData: FormField[] = [
       { label: "Guest", value: "guest" },
     ],
     value: "guest",
+    dependencies: [{ fieldName: "is_admin", value: true }],
   },
   {
     type: FieldType.RADIO,

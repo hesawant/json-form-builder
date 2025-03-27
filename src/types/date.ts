@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { FieldType } from "./field";
+import { FieldDependency, FieldType } from "./field";
 import { Validator } from "./validation-rules";
 
 export type DateSchema = {
@@ -12,6 +12,7 @@ export type DateSchema = {
   max?: string;
   value?: string;
   required?: boolean;
+  dependencies?: FieldDependency[];
 };
 
 export const getDateSchemaValidators = (dateSchema: DateSchema) => {

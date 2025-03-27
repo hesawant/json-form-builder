@@ -4,7 +4,7 @@ import { EmailSchema, getEmailSchemaValidators } from "./email";
 import { RadioOption, RadioSchema, getRadioSchemaValidators } from "./radio";
 import { SelectSchema, getSelectSchemaValidators } from "./select";
 import { TextFieldSchema, getTextFieldSchemaValidators } from "./text-field";
-import { FieldType } from "./field";
+import { FieldDependency, FieldType } from "./field";
 
 export { FieldType };
 
@@ -16,6 +16,7 @@ export type {
   RadioSchema,
   SelectSchema,
   TextFieldSchema,
+  FieldDependency,
 };
 
 export type FormField =
