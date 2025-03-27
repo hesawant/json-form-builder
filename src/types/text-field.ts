@@ -1,5 +1,7 @@
 import * as yup from "yup";
 
+import { MaxLengthRule, MinLengthRule, PatternRule } from "./validation-rules";
+
 export type TextFieldSchema = {
   type: "text";
   name: string;
@@ -8,30 +10,44 @@ export type TextFieldSchema = {
   placeholder?: string;
   required?: boolean;
   value?: string;
-  defaultValue?: string;
-  minLength?: number;
-  maxLength?: number;
-  validation?: RegExp;
+  validationRules?: (MaxLengthRule | MinLengthRule | PatternRule)[];
 };
 
-export const getTextFieldSchemaValidator = (textField: TextFieldSchema) => {
-  let textFieldSchema = yup.string();
+export const getTextFieldSchemaValidators = (textField: TextFieldSchema) => {
+  const validators: { validator: yup.StringSchema; error: string }[] = [];
 
   if (textField.required) {
-    textFieldSchema = textFieldSchema.required();
+    validators.push({
+      validator: yup.string().required(),
+      error: `${textField.label} is required`,
+    });
   }
 
-  if (textField.validation) {
-    textFieldSchema = textFieldSchema.matches(textField.validation);
-  }
+  textField.validationRules?.forEach((rule) => {
+    switch (rule.type) {
+      case "max": {
+        validators.push({
+          validator: yup.string().max(rule.value),
+          error: rule.error || `Max length is ${rule.value}`,
+        });
+        break;
+      }
+      case "min": {
+        validators.push({
+          validator: yup.string().min(rule.value),
+          error: rule.error || `Min length is ${rule.value}`,
+        });
+        break;
+      }
+      case "pattern": {
+        validators.push({
+          validator: yup.string().matches(new RegExp(rule.value)),
+          error: rule.error || `Invalid ${textField.label}`,
+        });
+        break;
+      }
+    }
+  });
 
-  if (textField.minLength) {
-    textFieldSchema = textFieldSchema.min(textField.minLength);
-  }
-
-  if (textField.maxLength) {
-    textFieldSchema = textFieldSchema.max(textField.maxLength);
-  }
-
-  return textFieldSchema;
+  return validators;
 };

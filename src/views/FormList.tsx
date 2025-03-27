@@ -48,6 +48,7 @@ const FormList = ({ selectedIndex, onClick }: Props) => {
         {forms.map((_, index) => {
           return (
             <ListItemButton
+              key={index}
               onClick={() => onClick(index)}
               selected={selectedIndex === index}
             >

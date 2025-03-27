@@ -7,11 +7,30 @@ export const formData: FormSchema = [
     label: "Username",
     required: true,
     value: "hesawant",
+    validationRules: [
+      {
+        type: "max",
+        value: 10,
+        error: "Username must be less than 10 characters",
+      },
+      {
+        type: "min",
+        value: 3,
+        error: "Username must be at least 3 characters",
+      },
+    ],
   },
   {
-    name: "username",
+    name: "email",
     type: "text",
-    label: "Username",
+    label: "Email",
     required: false,
+    validationRules: [
+      {
+        type: "pattern",
+        value: "^[^s@]+@[^s@]+\\.[^s@]+$",
+        error: "Invalid email address",
+      },
+    ],
   },
 ];

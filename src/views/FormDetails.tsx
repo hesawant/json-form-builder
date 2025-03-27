@@ -60,7 +60,7 @@ const FormDetails = ({ index, onDelete }: Props) => {
           />
         )}
       </Stack>
-      <Form form={form} />
+      <Form form={form} index={index} />
     </Stack>
   );
 };
