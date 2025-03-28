@@ -18,7 +18,13 @@ Run the below steps
 
 This application accepts a JSON schema and dynamically renders a form based on the provided configuration.
 
-Supports the following types:
+### Features
+
+- Configuring the form based on JSON schema.
+- Custom validation rules for each of the form fields.
+- Supports field dependency. A field that has dependency on other field will be hidden until the dependent field has data.
+
+### Supports the following types:
 
 - Checkbox
 - Date

@@ -68,6 +68,7 @@ const FormBuilderDialog = ({ json, onSave, onClose }: Props) => {
       jsonSchema.validateSync(jsonObject);
 
       onSave(jsonObject);
+      onClose();
     } catch (e) {
       setError(`Invalid JSON: ${(e as Error).message}`);
     }
