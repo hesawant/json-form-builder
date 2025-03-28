@@ -43,7 +43,7 @@ const FormBuilderDialog = ({ json, onSave, onClose }: Props) => {
     const jsonSchema = yup
       .array()
       .required()
-      .min(1)
+      .min(1, "Add atleast 1 form field")
       .test("is-valid-field-type", `Invalid field type`, (value) => {
         return value.every((item) =>
           [
@@ -62,14 +62,12 @@ const FormBuilderDialog = ({ json, onSave, onClose }: Props) => {
 
     try {
       const jsonObject = JSON.parse(jsonInput);
-      const validationResult = jsonSchema.validateSync(jsonObject);
 
-      if (validationResult.length) {
-        onSave(jsonObject);
-        onClose();
-      } else {
-        setError("Invalid JSON");
-      }
+      // Throws error if schema is invalid with appropriate error message
+      // It is caught and shown to the user.
+      jsonSchema.validateSync(jsonObject);
+
+      onSave(jsonObject);
     } catch (e) {
       setError(`Invalid JSON: ${(e as Error).message}`);
     }
